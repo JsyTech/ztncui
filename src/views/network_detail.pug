@@ -82,7 +82,7 @@ block net_content
         tr
           td(width='3%')
             = ''
-          td(width='20%')
+          td(width='16%')
             | Member name
           td(width='10%')
             | Member ID
@@ -90,12 +90,14 @@ block net_content
             | Authorized
           td(width='10%')
             | Active bridge
-          td(width='17%')
+          td(width='13%')
             | IP assignment
-          td(width='17%')
+          td(width='13%')
             | Peer status
           td(width='13%')
             | Peer address / latency
+          td(width='10%')
+            | CreationTime
         each member in members
           - const peer = member.peer;
           tr
@@ -124,10 +126,14 @@ block net_content
               if (peer && peer.latency != -1 && peer.versionMajor != -1)
                 if (peer.latency != -1)
                   span(style='color: green;')
-                    | ONLINE (v#{peer.version})
+                    | ONLINE
+                    br
+                    | (v#{peer.version})
                 else
                   span(style='color: orange;')
-                    | RELAY (v#{peer.version})
+                    | RELAY
+                    br
+                    | (v#{peer.version})
               else if (member.id == zt_address)
                 span(style='color: green;') CONTROLLER
               else
@@ -144,6 +150,8 @@ block net_content
                       br
                       | (#{peer.latency} ms)
                     - break
+            td
+              #{member.creationTimeStr}
         else
           .alert.alert-info
             strong There are no members on this network - invite users to join #{network.nwid}
