@@ -1,6 +1,12 @@
+const options = {
+  year: 'numeric', month: 'numeric', day: 'numeric',
+  hour: 'numeric', minute: 'numeric', second: 'numeric',
+  hour12: false
+};
+
 function timeFormatFunc(timestamp) {
   if (!timestamp) return timestamp;
-  const localeStr = new Date(timestamp).toLocaleString();
+  const localeStr = new Date(timestamp).toLocaleString('zh-CN', options);
   return localeStr + '(' + timestamp + ')';
 }
 const valueFormatFunc = {
