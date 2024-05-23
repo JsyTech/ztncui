@@ -8,6 +8,7 @@ const fs = require('fs');
 const ipaddr = require('ip-address');
 const storage = require('node-persist');
 const zt = require('./zt');
+const memberFormatter = require('./formatters/member');
 const util = require('util');
 
 storage.initSync({dir: 'etc/storage'});
@@ -56,7 +57,8 @@ async function get_network_member(nwid, memberid) {
   ]);
   member.name = name || '';
   member.peer = peer;
-  return {network, member};
+  const formatMember = memberFormatter.get(member);
+  return {network, formatMember};
 }
 
 // ZT network controller home page
