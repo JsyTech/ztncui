@@ -58,7 +58,7 @@ async function get_network_member(nwid, memberid) {
   member.name = name || '';
   member.peer = peer;
   const formatMember = memberFormatter.get(member);
-  return {network, formatMember};
+  return {network, member: formatMember};
 }
 
 // ZT network controller home page

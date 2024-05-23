@@ -1,7 +1,7 @@
 function timeFormatFunc(timestamp) {
   if (!timestamp) return timestamp;
   const localeStr = new Date(timestamp).toLocaleString();
-  return localeStr + '(' + imestamp + ')';
+  return localeStr + '(' + timestamp + ')';
 }
 const valueFormatFunc = {
   creationTime: timeFormatFunc,
