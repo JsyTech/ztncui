@@ -7,7 +7,7 @@ const options = {
 function timeFormatFunc(timestamp) {
   if (!timestamp) return timestamp;
   const localeStr = new Date(timestamp).toLocaleString('zh-CN', options);
-  const formatLocaleStr = localeStr.replace(/^(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3');
+  const formatLocaleStr = localeStr.replace(/^(\d+)\/(\d+)\/(\d+)/, '$3-$2-$1');
   return formatLocaleStr;
 }
 // const valueFormatFunc = {
