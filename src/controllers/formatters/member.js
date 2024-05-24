@@ -36,7 +36,7 @@ exports.get = function formatMemberInfo(member) {
     const key = item.key || '';
     const newKey = item.newKey;
     const formatter = item.formatter;
-    const originalValue = member[newKey];
+    const originalValue = member[key];
     if (originalValue && formatter) {
       const newValue = formatter(originalValue);
       member[newKey] = newValue;
