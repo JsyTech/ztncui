@@ -9,6 +9,7 @@ const ipaddr = require('ip-address');
 const storage = require('node-persist');
 const zt = require('./zt');
 const memberFormatter = require('./formatters/member');
+const membersFormatter = require('./formatters/members');
 const util = require('util');
 
 storage.initSync({dir: 'etc/storage'});
@@ -45,7 +46,8 @@ async function get_network_with_members(nwid) {
   for (const member of members) {
     member.peer = peers.find(x => x.address === member.address);
   }
-  return {network, members};
+  const memberGroups = membersFormatter.getGroups(network, members);
+  return {network, members, memberGroups};
 }
 
 async function get_network_member(nwid, memberid) {
@@ -102,13 +104,13 @@ exports.network_detail = async function(req, res) {
 
   try {
     const [
-      {network, members},
+      {network, members, memberGroups},
       zt_address
     ] = await Promise.all([
       get_network_with_members(req.params.nwid),
       zt.get_zt_address()
     ]);
-    res.render('network_detail', {title: 'Network ' + network.name, navigate: navigate, network: network, members: members, zt_address: zt_address});
+    res.render('network_detail', {title: 'Network ' + network.name, navigate: navigate, network: network, memberList: members, memberGroups: memberGroups, zt_address: zt_address});
   } catch (err) {
     res.render('network_detail', {title: 'Detail for network', navigate: navigate, error: 'Error resolving detail for network ' + req.params.nwid + ': ' + err});
   }
