@@ -45,6 +45,7 @@ async function get_network_with_members(nwid) {
   ]);
   for (const member of members) {
     member.peer = peers.find(x => x.address === member.address);
+    memberFormatter.get(member);
   }
   const memberGroups = membersFormatter.getGroups(network, members);
   return {network, members, memberGroups};
