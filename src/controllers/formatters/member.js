@@ -4,7 +4,8 @@ const options = {
   hour12: false
 };
 
-function timeFormatFunc(timestamp) {
+function timeFormatFunc(timestampStr) {
+  const timestamp = Number(timestampStr);
   if (!timestamp) return timestamp;
   const localeStr = new Date(timestamp).toLocaleString('zh-CN', options);
   const formatLocaleStr = localeStr.replace(/^(\d+)\/(\d+)\/(\d+)/, '$3-$1-$2');
