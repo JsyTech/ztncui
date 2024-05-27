@@ -16,7 +16,7 @@ exports.getGroups = function getGroups(network, members) {
     if (member.ipAssignments && member.ipAssignments.length) {
       return true;
     }
-    return fasle;
+    return false;
   });
 
   const groups = [
