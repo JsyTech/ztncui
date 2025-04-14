@@ -19,6 +19,7 @@ const helmet = require('helmet');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const zt_controller = require('./routes/zt_controller');
+const api = require('./routes/api');
 
 const app = express();
 
@@ -49,6 +50,7 @@ app.use('/bsjs', express.static(path.join(__dirname, 'node_modules/bootstrap/dis
 app.use('/', index);
 app.use('/users', users);
 app.use('/controller', zt_controller);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
