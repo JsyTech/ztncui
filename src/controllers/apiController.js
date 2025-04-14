@@ -97,10 +97,12 @@ exports.addIpAssignment = async function(req, res) {
 
         // Find first available IP in subnet (skip network and broadcast)
         const subnet = new ipaddr.Address4(routeTarget);
-        const startIp = subnet.startAddress().bigNumber().add(1);
-        const endIp = subnet.endAddress().bigNumber().sub(1);
+        const startIpHexStr = subnet.startAddress().toHex();
+        const endIpHexStr = subnet.endAddress().toHex();
+        const startIpHexNum = parseInt(startIpHexStr.replaceAll(':', ''), 16);
+        const endIpHexNum = parseInt(endIpHexStr.replaceAll(':', ''), 16);
 
-        for (let ip = startIp; ip <= endIp; ip = ip.add(1)) {
+        for (let ip = startIpHexNum + 1; ip < endIpHexNum; ip++) {
           const ipStr = new ipaddr.Address4(ip).address;
           if (!assignedIps.includes(ipStr)) {
             assignedIp = ipStr;
