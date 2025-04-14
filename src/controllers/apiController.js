@@ -63,7 +63,6 @@ exports.addIpAssignment = async function(req, res) {
       return res.status(400).json({ error: 'Either ipAddress or routeTarget is required' });
     }
 
-    const member = await zt.member_detail(nwid, memberId);
     let assignedIp = ipAddress;
 
     if (routeTarget) {
