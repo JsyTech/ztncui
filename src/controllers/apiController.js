@@ -99,13 +99,14 @@ exports.addIpAssignment = async function(req, res) {
         const subnet = new ipaddr.Address4(routeTarget);
         const startIpHexStr = subnet.startAddress().toHex();
         const endIpHexStr = subnet.endAddress().toHex();
-        const startIpHexNum = parseInt(startIpHexStr.replaceAll(':', ''), 16);
-        const endIpHexNum = parseInt(endIpHexStr.replaceAll(':', ''), 16);
+        const startIpHexNum = parseInt(startIpHexStr.replace(/:/g, ''), 16);
+        const endIpHexNum = parseInt(endIpHexStr.replace(/:/g, ''), 16);
 
         for (let ip = startIpHexNum + 1; ip < endIpHexNum; ip++) {
-          const ipStr = new ipaddr.Address4(ip).address;
-          if (!assignedIps.includes(ipStr)) {
-            assignedIp = ipStr;
+          const ipHexStr = ip.toString(16).replace(/(.{2})/g, ':$1').slice(1);
+          const ipV4Str = new ipaddr.Address4.fromHex(ipHexStr).address;
+          if (!assignedIps.includes(ipV4Str)) {
+            assignedIp = ipV4Str
             break;
           }
         }
